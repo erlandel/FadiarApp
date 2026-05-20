@@ -51,7 +51,7 @@ export const upcomingProductsUrl = `${server_url}/inventory_new_releases_manager
 
 export const get_addressesUrl = `${server_url}/obtener_direccion_domicilio_cliente`;
 
-export const add_addressUrl = `${server_url}//crear_direccion_domicilio_cliente`;
+export const add_addressUrl = `${server_url}/crear_direccion_domicilio_cliente`;
 
 export const edit_addressUrl = `${server_url}/editar_direccion_domicilio_cliente`;
 
