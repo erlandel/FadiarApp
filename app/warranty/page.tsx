@@ -17,7 +17,7 @@ const Warranty = () => {
             </Link>
             <span className="text-primary font-semibold">Garantía</span>
           </p>
-          <h1 className="text-3xl text-primary font-bold mb-8">Garantía</h1>
+          {/* <h1 className="text-3xl text-primary font-bold mb-8">Garantía</h1> */}
         </div>
 
       <section>
