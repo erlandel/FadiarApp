@@ -175,7 +175,7 @@ export default function ImageViewer({ images, initialIndex, isOpen, onClose }: I
 
   return (
     <div
-      className="fixed inset-0 z-100 w-screen h-screen bg-black/80 backdrop-blur-sm flex select-none"
+      className="fixed inset-0 z-100 w-full h-dvh bg-black/80 backdrop-blur-sm flex select-none"
       onClick={onClose}
     >
       <div
@@ -277,7 +277,7 @@ export default function ImageViewer({ images, initialIndex, isOpen, onClose }: I
               <button
                 key={i}
                 onClick={() => setCurrentIndex(i)}
-                className={`w-2h-24 h-24 rounded-md overflow-hidden shrink-0 transition-all cursor-pointer ${
+                className={`w-24 h-24 rounded-md overflow-hidden shrink-0 transition-all cursor-pointer ${
                   i === currentIndex
                    ? "border-2 border-accent shadow-2xl shadow-accent/80"
                     : "border border-gray-400 hover:border-gray-200"
