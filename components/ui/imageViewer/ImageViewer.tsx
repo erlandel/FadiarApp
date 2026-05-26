@@ -147,7 +147,7 @@ export default function ImageViewer({ images, initialIndex, isOpen, onClose }: I
 
   return (
     <div
-      className="fixed inset-0 z-100 bg-black/80 backdrop-blur-sm flex select-none"
+      className="fixed inset-0 z-100 h-svh bg-black/80 backdrop-blur-sm flex flex-col select-none"
       onClick={onClose}
     >
       <div
