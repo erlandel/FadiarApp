@@ -36,16 +36,7 @@ export default function ImageViewer({ images, initialIndex, isOpen, onClose }: I
     }
   }, [isOpen, initialIndex]);
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
+
 
   useEffect(() => {
     if (scale === 1) setPosition({ x: 0, y: 0 });
@@ -151,7 +142,7 @@ export default function ImageViewer({ images, initialIndex, isOpen, onClose }: I
       onClick={onClose}
     >
       <div
-        className="relative w-full flex-1 flex flex-col min-h-0"
+        className="relative w-full flex-1 flex flex-col min-h-0 overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* ── Mobile: barra superior con zoom + X en la misma fila ── */}
@@ -224,7 +215,7 @@ export default function ImageViewer({ images, initialIndex, isOpen, onClose }: I
           )}
 
           {/* Columna imagen */}
-          <div className="flex flex-col flex-1 min-h-0 justify-center">
+          <div className="flex flex-col md:flex-1 md:min-h-0 justify-center">
             {/* Zoom PC (centrado sobre la imagen) */}
             <div className="hidden md:flex items-center justify-center mb-2 shrink-0">
               <div className="flex items-center gap-2 bg-black/60 rounded-full px-4 py-1.5">
@@ -253,7 +244,7 @@ export default function ImageViewer({ images, initialIndex, isOpen, onClose }: I
             {/* Contenedor imagen */}
             <div
               ref={containerRef}
-              className="relative flex-1 min-h-0 flex items-center justify-center overflow-hidden touch-none"
+              className="relative md:flex-1 md:min-h-0 flex items-center justify-center overflow-hidden touch-none"
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
@@ -273,33 +264,32 @@ export default function ImageViewer({ images, initialIndex, isOpen, onClose }: I
                 draggable={false}
               />
             </div>
+            {/* Miniaturas mobile */}
+            {images.length > 1 && (
+              <div className="md:hidden flex gap-3 justify-center pt-3 pb-3 mt-4 shrink-0">
+                {images.map((img, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentIndex(i)}
+                    className={`w-24 h-24 rounded-md overflow-hidden shrink-0 transition-all cursor-pointer ${
+                      i === currentIndex
+                        ? "border-2 border-accent shadow-2xl shadow-accent/80"
+                        : "border border-gray-400 hover:border-gray-200"
+                    }`}
+                    aria-label={`Ir a imagen ${i + 1}`}
+                  >
+                    <img
+                      src={`${server_url}/${img}`}
+                      alt=""
+                      className="w-full h-full object-cover"
+                      draggable={false}
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
-
-        {/* Miniaturas mobile (abajo) */}
-        {images.length > 1 && (
-          <div className="md:hidden flex gap-3 justify-center pt-3 pb-3 shrink-0">
-            {images.map((img, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrentIndex(i)}
-                className={`w-24 h-24 rounded-md overflow-hidden shrink-0 transition-all cursor-pointer ${
-                  i === currentIndex
-                    ? "border-2 border-accent shadow-2xl shadow-accent/80"
-                    : "border border-gray-400 hover:border-gray-200"
-                }`}
-                aria-label={`Ir a imagen ${i + 1}`}
-              >
-                <img
-                  src={`${server_url}/${img}`}
-                  alt=""
-                  className="w-full h-full object-cover"
-                  draggable={false}
-                />
-              </button>
-            ))}
-          </div>
-        )}
       </div>
     </div>
   );
