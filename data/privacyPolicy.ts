@@ -1,7 +1,7 @@
 
 export const privacyPolicy=`
 1. IDENTIDAD DEL RESPONSABLE
-El responsable del tratamiento de los datos personales recogidos a través del sitio web Grupo Fadiar, disponible en https://sample1.grupofadiar.com/ (en adelante, el “Sitio Web”), es Grupo Fadiar.
+El responsable del tratamiento de los datos personales recogidos a través del sitio web Grupo Fadiar, disponible en https://fadiar.com/ (en adelante, el “Sitio Web”), es Grupo Fadiar.
 Si tienes cualquier duda relacionada con el tratamiento de tus datos personales, puedes contactar con nosotros a través del correo electrónico atencionalcliente@grupofadiar.com o del teléfono +53 63513228, así como mediante los canales de contacto indicados en nuestro Sitio Web oficial.
 
 2. DATOS PERSONALES QUE RECABAMOS

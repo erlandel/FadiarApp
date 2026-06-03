@@ -5,4 +5,4 @@ Disallow: /cart2/
 Disallow: /cart3/
 Disallow: /orders/
 Disallow: /myProfile/
-Sitemap: https://sample1.grupofadiar.com/sitemap.xml
+Sitemap: https://fadiar.com/sitemap.xml

@@ -26,7 +26,7 @@ const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Fadiar",
-  url: "https://test.grupofadiar.com",
+  url: "https://fadiar.com",
 };
 
 export default function RootLayout({

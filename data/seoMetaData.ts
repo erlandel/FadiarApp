@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 
 const SITE_NAME = "Fadiar";
-export const SITE_URL = "https://test.grupofadiar.com";
+export const SITE_URL = "https://fadiar.com";
 
 const defaultOpenGraphImage = {
   url: `${SITE_URL}/images/socialPreview.png`,

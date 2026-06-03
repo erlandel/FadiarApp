@@ -68,7 +68,7 @@ function buildProductSchema(product: ProductID, id: string) {
   const price = product.temporal_price || product.price;
   const currency = product.currency?.currency || "USD";
   const imageUrl = `${server_url}/${product.img}`;
-  const productUrl = `https://test.grupofadiar.com/product/${id}`;
+  const productUrl = `https://fadiar.com/product/${id}`;
   const availability =
     product.count && product.count > 0
       ? "https://schema.org/InStock"
@@ -96,7 +96,7 @@ function buildProductSchema(product: ProductID, id: string) {
       seller: {
         "@type": "Organization",
         name: "Fadiar",
-        url: "https://test.grupofadiar.com",
+        url: "https://fadiar.com",
       },
     },
     ...(product.warranty && {

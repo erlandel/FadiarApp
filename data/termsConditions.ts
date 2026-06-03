@@ -1,7 +1,7 @@
 
 export const termsConditions=`
 1. Información general
-El presente documento establece los términos y condiciones bajo los cuales los usuarios acceden y utilizan el sitio web Grupo Fadiar, disponible en https://sample1.grupofadiar.com/ , así como los servicios y productos ofrecidos a través del mismo.
+El presente documento establece los términos y condiciones bajo los cuales los usuarios acceden y utilizan el sitio web Grupo Fadiar, disponible en https://fadiar.com/ , así como los servicios y productos ofrecidos a través del mismo.
 El acceso y uso de este sitio web implica la aceptación expresa y sin reservas de los presentes Términos y Condiciones.
 
 2. Capacidad legal
