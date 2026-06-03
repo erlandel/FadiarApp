@@ -46,7 +46,7 @@ const useLocation = (config?: { useGlobalStore?: boolean }) => {
 
       //provincias
 
-      const provinceData = Array.isArray(json) ? json : json.data;
+      const provinceData = Array.isArray(json) ? json : json.provincias;
       const version = json.version || null;
 
       if (!Array.isArray(provinceData)) {

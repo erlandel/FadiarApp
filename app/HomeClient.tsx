@@ -59,7 +59,7 @@ export default function HomeClient() {
   return (
     <>
       {showGlobalNoProducts ? (
-        <div className="mt-25 sm:mt-0 flex justify-center">
+        <div className="mt-25 sm:mt-30 flex justify-center">
           <NoProductsFound />
         </div>
       ) : (

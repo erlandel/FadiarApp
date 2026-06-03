@@ -1,4 +1,4 @@
-export const server_url = 'https://app.fadiar.com:444/prueba/api';
+export const server_url = 'https://app.fadiar.com:8443/api/';
 
 // export const server_url = 'https://59z4798b-5001.use.devtunnels.ms';
 
