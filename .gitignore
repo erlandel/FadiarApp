@@ -8,6 +8,8 @@ out/
 
 # dependencies
 /node_modules
+/openspec
+/.opencode
 /.pnp
 .pnp.*
 .yarn/*

@@ -190,7 +190,7 @@ export default function ImageViewer({ images, initialIndex, isOpen, onClose }: I
         {/* Contenido principal */}
         <div className="flex md:flex-row flex-1 min-h-0 px-4 md:px-8 gap-3 md:gap-4 md:py-5">
           {/* Miniaturas PC (izquierda, vertical) */}
-          {images.length > 1 && (
+          {/* {images.length > 1 && (
             <div className="hidden md:flex flex-col gap-3 items-center justify-center shrink-0">
               {images.map((img, i) => (
                 <button
@@ -212,7 +212,7 @@ export default function ImageViewer({ images, initialIndex, isOpen, onClose }: I
                 </button>
               ))}
             </div>
-          )}
+          )} */}
 
           {/* Columna imagen */}
           <div className="flex flex-col md:flex-1 md:min-h-0 justify-center">
@@ -265,7 +265,7 @@ export default function ImageViewer({ images, initialIndex, isOpen, onClose }: I
               />
             </div>
             {/* Miniaturas mobile */}
-            {images.length > 1 && (
+            {/* {images.length > 1 && (
               <div className="md:hidden flex gap-3 justify-center pt-3 pb-3 mt-4 shrink-0">
                 {images.map((img, i) => (
                   <button
@@ -287,7 +287,8 @@ export default function ImageViewer({ images, initialIndex, isOpen, onClose }: I
                   </button>
                 ))}
               </div>
-            )}
+            )} */}
+
           </div>
         </div>
       </div>

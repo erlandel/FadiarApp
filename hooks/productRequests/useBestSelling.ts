@@ -3,7 +3,7 @@ import useProductsByLocationStore from "@/store/productsByLocationStore";
 import { Product } from "@/types/product";
 import { best_selling_productsUrl } from "@/urlApi/urlApi";
 
-export const useBestSelling = (count: number = 9) => {
+export const useBestSelling = (count: number = 15) => {
   const { municipalityId,provinceId } = useProductsByLocationStore();
 
   return useQuery<Product[]>({

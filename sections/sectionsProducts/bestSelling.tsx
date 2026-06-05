@@ -14,7 +14,7 @@ type BestSellingProps = {
 
 export const BestSelling = ({ products: productsProp }: BestSellingProps) => {
   // Usar el hook de caché
-  const { data: bestSellingProducts = [], isLoading: isBestSellingLoading } = useBestSelling(10);
+  const { data: bestSellingProducts = [], isLoading: isBestSellingLoading } = useBestSelling(15);
   // Obtener el inventario de la cache
   const { data: inventoryData, isLoading: isInventoryLoading } = useInventory();
 

@@ -19,7 +19,7 @@ export const LatestProducts = ({
     data: latestProductsData = [],
     isLoading,
     isFetching,
-  } = useLatestProducts(10);
+  } = useLatestProducts(15);
 
   // Usar productos del estado de caché si no vienen como prop
   const productsToUse =

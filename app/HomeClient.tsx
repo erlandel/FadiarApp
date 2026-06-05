@@ -18,11 +18,10 @@ type InventoryProduct = {
 };
 
 export default function HomeClient() {
-  const { data: latest = [], isLoading: latestLoading } = useLatestProducts(10);
+  const { data: latest = [], isLoading: latestLoading } = useLatestProducts(15);
   const { data: offers = [], isLoading: offersLoading } = useNineOffers(9);
-  const { data: best = [], isLoading: bestLoading } = useBestSelling(10);
+  const { data: best = [], isLoading: bestLoading } = useBestSelling(15);
   const { data: inventoryData, isLoading: inventoryLoading } = useInventory();
-
   const bestAfterInventory = useMemo(() => {
     const inventoryProducts: InventoryProduct[] = Array.isArray(inventoryData?.products)
       ? inventoryData.products

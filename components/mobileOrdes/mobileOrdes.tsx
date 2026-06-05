@@ -6,12 +6,13 @@ import { MaterialSymbolsAdd } from "@/icons/icons";
 import CartCard from "../cartCard/cartCard";
 import { useGetOrderProducts } from "@/hooks/orderRequests/useGetOrderProducts";
 import LoadingDots from "../loadingDots/loadingDots";
-import { Loader } from "lucide-react";
+import { Loader, Trash2 } from "lucide-react";
 import { Order, OrderProduct } from "@/types/order";
 import { EmojioneLeftArrow } from "@/icons/icons";
 import { WhatsApp, StreamlineUltimateColorMessagesLogo } from "@/icons/icons";
 import MatterCart1Store from "@/store/matterCart1Store";
 import { useGetOrderNote } from "@/hooks/orderRequests/useGetOrderNote";
+import { useCancelOrder } from "@/hooks/orderRequests/useCancelOrder";
 import { openWhatsAppHelp } from "@/utils/whatsapp";
 
 interface MobileOrdesProps {
@@ -35,6 +36,11 @@ export default function MobileOrdes({
   const { fetchOrderProducts } = useGetOrderProducts();
   const updateFormData = MatterCart1Store((state) => state.updateFormData);
   const { fetchOrderNote } = useGetOrderNote();
+  const {
+    cancelOrder,
+    isLoading: isCancelling,
+    variables: cancellingOrderId,
+  } = useCancelOrder();
   const [notesByOrder, setNotesByOrder] = useState<
     Record<string, any[] | null>
   >({});
@@ -152,8 +158,8 @@ export default function MobileOrdes({
                       <p className="text-sm sm:text-lg">Teléfono</p>
                       <p className=" font-bold text-right sm:text-xl">
                         {order.client_cell?.startsWith("+")
-                            ? order.client_cell
-                            : "no disponible"}
+                          ? order.client_cell
+                          : "no disponible"}
                       </p>
 
                       {/* Estado */}
@@ -188,6 +194,23 @@ export default function MobileOrdes({
                           onClick={() => openWhatsAppHelp(order.codigo)}
                           className="h-9 w-9 cursor-pointer transition-all duration-300 ease-out hover:scale-110"
                         />
+                      </p>
+
+                      {/* Acciones */}
+                      <p className="text-sm sm:text-lg">Acciones</p>
+                      <p className="flex justify-end">
+                        <button
+                          onClick={() => cancelOrder(order.id)}
+                          className=" rounded-xl flex items-center justify-center cursor-pointer transition-transform duration-200 ease-out hover:scale-110"
+                        >
+                          <Trash2
+                            className={`w-8.5 h-8.5 ${isOpen ? "text-white" : "text-red-600"} ${
+                              isCancelling && cancellingOrderId === order.id
+                                ? "animate__animated animate__flash animate__infinite"
+                                : ""
+                            }`}
+                          />
+                        </button>
                       </p>
                     </div>
                   </div>
@@ -299,14 +322,16 @@ export default function MobileOrdes({
                                 </p>
                               ) : (
                                 <div className="flex flex-col gap-1">
-                                  {notesByOrder[order.id]!.map((notaItem, index) => (
-                                    <p
-                                      key={notaItem.id}
-                                      className="italic font-bold text-base sm:text-xl wrap-break-word"
-                                    >
-                                      {index + 1}. {notaItem.message}
-                                    </p>
-                                  ))}
+                                  {notesByOrder[order.id]!.map(
+                                    (notaItem, index) => (
+                                      <p
+                                        key={notaItem.id}
+                                        className="italic font-bold text-base sm:text-xl wrap-break-word"
+                                      >
+                                        {index + 1}. {notaItem.message}
+                                      </p>
+                                    ),
+                                  )}
                                 </div>
                               )}
                             </div>

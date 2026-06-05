@@ -220,8 +220,10 @@ export default function ProductClient({ id }: ProductClientProps) {
                     }}
                   />
                 </div>
-
-                <div className="flex gap-2 mt-3">
+                
+              {/* Miniaturas de la imagen */}
+            
+                {/* <div className="flex gap-2 mt-3">
                   {images.map((img, i) => (
                     <div
                       key={i}
@@ -245,7 +247,9 @@ export default function ProductClient({ id }: ProductClientProps) {
                       />
                     </div>
                   ))}
-                </div>
+                </div> */}
+
+
               </div>
 
               <div className="md:w-2/3">

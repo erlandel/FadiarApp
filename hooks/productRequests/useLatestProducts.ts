@@ -3,7 +3,7 @@ import useProductsByLocationStore from "@/store/productsByLocationStore";
 import { Product } from "@/types/product";
 import { latest_productsUrl } from "@/urlApi/urlApi";
 
-export const useLatestProducts = (count: number = 6) => {
+export const useLatestProducts = (count: number = 15 ) => {
   const { municipalityId,provinceId } = useProductsByLocationStore();
   const emisor = 'web';
 

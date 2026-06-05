@@ -60,3 +60,5 @@ export const delete_addressUrl = `${server_url}/eliminar_direccion_domicilio_cli
 export const noteUrl = `${server_url}/get_messages`;
 
 export const getProductForVisualUrl = `${server_url}/getProductForVisual`;
+
+export const denegar_pedidoUrl = `${server_url}/denegar_pedido`;
