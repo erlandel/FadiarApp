@@ -233,7 +233,7 @@ export default function CardProduct({
         <div
           id={`product-${productId}`}
           onClick={productId ? handleCardClick : undefined}
-          className={`bg-white  flex w-full h-48 sm:h-60 max-w-115 gap-2 rounded-2xl border border-gray-200 p-2 sm:p-3 shadow-sm sm:flex-row  ${
+          className={`bg-white  flex w-full h-48 sm:h-58 max-w-115 gap-2 rounded-2xl border border-gray-200 p-2 sm:p-3 shadow-sm sm:flex-row  ${
             productId ? "cursor-pointer transition-shadow hover:shadow-md" : ""
           }`}
         >

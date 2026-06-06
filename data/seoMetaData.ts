@@ -13,7 +13,7 @@ const defaultOpenGraphImage = {
 
 export const seoMetaData: Record<string, Metadata> = {
   "/": {
-      title: "Grupo Fadiar.Tienda de electrodomésticos Muebles e Iluminación en Cuba",
+      title: "Grupo Fadiar | Tienda de electrodomésticos Muebles e Iluminación en Cuba",
     description:
       "Descubre productos de calidad para tu hogar en la tienda oficial del Grupo Fadiar. Electrodomésticos, mobiliario e iluminación con envíos a toda Cuba. Compra online fácil y seguro.",
     alternates: {
