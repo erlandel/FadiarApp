@@ -130,8 +130,8 @@ export async function generateMetadata({
 
   if (!product) {
     return {
-      title: "Producto no encontrado | Fadiar",
-      description: "El producto que buscas no está disponible.",
+      title: "Producto | Grupo Fadiar",
+      description: "Producto pertenece a la tienda Fadiar",
     };
   }
   const imageUrl = `${server_url}/${product.img}`;

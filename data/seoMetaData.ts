@@ -13,16 +13,16 @@ const defaultOpenGraphImage = {
 
 export const seoMetaData: Record<string, Metadata> = {
   "/": {
-    title: "Compra Electrodomésticos Muebles e Iluminación | Tienda Fadiar",
+      title: "Grupo Fadiar.Tienda de electrodomésticos Muebles e Iluminación en Cuba",
     description:
-      "Descubre productos de calidad para tu hogar en la tienda oficial de Fadiar. Electrodomésticos, mobiliario e iluminación con envíos a toda Cuba. Compra online fácil y seguro.",
+      "Descubre productos de calidad para tu hogar en la tienda oficial del Grupo Fadiar. Electrodomésticos, mobiliario e iluminación con envíos a toda Cuba. Compra online fácil y seguro.",
     alternates: {
       canonical: `${SITE_URL}/`,
     },
     openGraph: {
-      title: "Compra Electrodomésticos Muebles e Iluminación | Tienda Fadiar",
+      title: "Compra Electrodomésticos Muebles e Iluminación | Grupo Fadiar",
       description:
-        "Compra online electrodomésticos, muebles e iluminación en Fadiar. Envíos a toda Cuba.",
+        "Compra online electrodomésticos, muebles e iluminación en el Grupo Fadiar. Envíos a toda Cuba.",
       url: `${SITE_URL}/`,
       siteName: SITE_NAME,
       locale: "es_ES",
@@ -31,7 +31,7 @@ export const seoMetaData: Record<string, Metadata> = {
     },
     twitter: {
       card: "summary_large_image",
-      title: "Compra Electrodomésticos Muebles e Iluminación | Tienda Fadiar",
+      title: "Compra Electrodomésticos Muebles e Iluminación | Grupo Fadiar",
       description:
         "Compra online electrodomésticos, muebles e iluminación en Fadiar. Envíos a toda Cuba.",
       images: [defaultOpenGraphImage.url],
@@ -39,14 +39,14 @@ export const seoMetaData: Record<string, Metadata> = {
   },
 
   "/products": {
-    title: "Productos | Tienda Fadiar",
+    title: "Productos | Grupo Fadiar",
     description:
       "Explora el catálogo completo de Fadiar: electrodomésticos, muebles e iluminación. Filtra por categorías y encuentra lo que necesitas.",
     alternates: {
       canonical: `${SITE_URL}/products`,
     },
     openGraph: {
-      title: "Productos | Tienda Fadiar",
+      title: "Productos | Grupo Fadiar",
       description:
         "Explora el catálogo completo de Fadiar: electrodomésticos, muebles e iluminación.",
       url: `${SITE_URL}/products`,
@@ -57,7 +57,7 @@ export const seoMetaData: Record<string, Metadata> = {
     },
     twitter: {
       card: "summary_large_image",
-      title: "Productos | Tienda Fadiar",
+      title: "Productos | Grupo Fadiar",
       description:
         "Explora el catálogo completo de Fadiar: electrodomésticos, muebles e iluminación.",
       images: [defaultOpenGraphImage.url],
@@ -65,16 +65,16 @@ export const seoMetaData: Record<string, Metadata> = {
   },
 
   "/about": {
-    title: "Sobre Nosotros | Fadiar",
+    title: "Sobre Nosotros | Grupo Fadiar",
     description:
-      "Conoce a Fadiar: nuestra misión, valores y compromiso con la calidad y el servicio. Soluciones para el hogar con envíos a Cuba.",
+      "Conoce al Grupo Fadiar: nuestra misión, valores y compromiso con la calidad y el servicio. Soluciones para el hogar con envíos a Cuba.",
     alternates: {
       canonical: `${SITE_URL}/about`,
     },
     openGraph: {
-      title: "Sobre Nosotros | Fadiar",
+      title: "Sobre Nosotros | Grupo Fadiar",
       description:
-        "Conoce a Fadiar: misión, valores y compromiso con la calidad y el servicio.",
+        "Conoce al Grupo Fadiar: misión, valores y compromiso con la calidad y el servicio.",
       url: `${SITE_URL}/about`,
       siteName: SITE_NAME,
       locale: "es_ES",
@@ -83,22 +83,22 @@ export const seoMetaData: Record<string, Metadata> = {
     },
     twitter: {
       card: "summary_large_image",
-      title: "Sobre Nosotros | Fadiar",
+      title: "Sobre Nosotros | Grupo Fadiar",
       description:
-        "Conoce a Fadiar: misión, valores y compromiso con la calidad y el servicio.",
+        "Conoce al Grupo Fadiar: misión, valores y compromiso con la calidad y el servicio.",
       images: [defaultOpenGraphImage.url],
     },
   },
 
   "/contact": {
-    title: "Contacto | Fadiar",
+    title: "Contacto | Grupo Fadiar",
     description:
-      "Ponte en contacto con Fadiar para soporte, consultas y seguimiento. Estamos para ayudarte.",
+      "Ponte en contacto con el Grupo Fadiar para soporte, consultas y seguimiento. Estamos para ayudarte.",
     alternates: {
       canonical: `${SITE_URL}/contact`,
     },
     openGraph: {
-      title: "Contacto | Fadiar",
+      title: "Contacto | Grupo Fadiar",
       description: "Soporte, consultas y seguimiento con el equipo de Fadiar.",
       url: `${SITE_URL}/contact`,
       siteName: SITE_NAME,
@@ -108,22 +108,22 @@ export const seoMetaData: Record<string, Metadata> = {
     },
     twitter: {
       card: "summary_large_image",
-      title: "Contacto | Fadiar",
-      description: "Soporte, consultas y seguimiento con el equipo de Fadiar.",
+      title: "Contacto | Grupo Fadiar",
+      description: "Soporte, consultas y seguimiento con el equipo del Grupo Fadiar.",
       images: [defaultOpenGraphImage.url],
     },
   },
 
   "/faq": {
-    title: "Preguntas Frecuentes | Fadiar",
+    title: "Preguntas Frecuentes | Grupo Fadiar",
     description:
-      "Resuelve tus dudas sobre compras, pagos, envíos y garantías en la tienda de Fadiar.",
+      "Resuelve tus dudas sobre compras, pagos, envíos y garantías en la tienda del  Grupo Fadiar.",
     alternates: {
       canonical: `${SITE_URL}/faq`,
     },
     openGraph: {
-      title: "Preguntas Frecuentes | Fadiar",
-      description: "Dudas sobre compras, pagos, envíos y garantías en Fadiar.",
+      title: "Preguntas Frecuentes | Grupo Fadiar",
+      description: "Dudas sobre compras, pagos, envíos y garantías en el Grupo Fadiar.",
       url: `${SITE_URL}/faq`,
       siteName: SITE_NAME,
       locale: "es_ES",
@@ -132,22 +132,22 @@ export const seoMetaData: Record<string, Metadata> = {
     },
     twitter: {
       card: "summary_large_image",
-      title: "Preguntas Frecuentes | Fadiar",
-      description: "Dudas sobre compras, pagos, envíos y garantías en Fadiar.",
+      title: "Preguntas Frecuentes | Grupo Fadiar",
+      description: "Dudas sobre compras, pagos, envíos y garantías en el Grupo Fadiar.",
       images: [defaultOpenGraphImage.url],
     },
   },
 
   "/shipping": {
-    title: "Envíos | Fadiar",
+    title: "Envíos | Grupo Fadiar",
     description:
-      "Información sobre envíos, cobertura y tiempos de entrega de Fadiar. Recibe tus compras de forma segura.",
+      "Información sobre envíos, cobertura y tiempos de entrega del Grupo Fadiar. Recibe tus compras de forma segura.",
     alternates: {
       canonical: `${SITE_URL}/shipping`,
     },
     openGraph: {
-      title: "Envíos | Fadiar",
-      description: "Cobertura, tiempos de entrega y detalles de envío en Fadiar.",
+      title: "Envíos | Grupo Fadiar",
+      description: "Cobertura, tiempos de entrega y detalles de envío en el Grupo Fadiar.",
       url: `${SITE_URL}/shipping`,
       siteName: SITE_NAME,
       locale: "es_ES",
@@ -156,22 +156,22 @@ export const seoMetaData: Record<string, Metadata> = {
     },
     twitter: {
       card: "summary_large_image",
-      title: "Envíos | Fadiar",
-      description: "Cobertura, tiempos de entrega y detalles de envío en Fadiar.",
+      title: "Envíos  | Grupo Fadiar",
+      description: "Cobertura, tiempos de entrega y detalles de envío en el Grupo Fadiar.",
       images: [defaultOpenGraphImage.url],
     },
   },
 
   "/warranty": {
-    title: "Garantía | Fadiar",
+    title: "Garantía | Grupo Fadiar",
     description:
-      "Consulta la política de garantía de Fadiar y los pasos para solicitar soporte si tu producto lo requiere.",
+      "Consulta la política de garantía del Grupo Fadiar y los pasos para solicitar soporte si tu producto lo requiere.",
     alternates: {
       canonical: `${SITE_URL}/warranty`,
     },
     openGraph: {
-      title: "Garantía | Fadiar",
-      description: "Política de garantía y soporte postventa en Fadiar.",
+      title: "Garantía | Grupo Fadiar",
+      description: "Política de garantía y soporte postventa en el Grupo Fadiar.",
       url: `${SITE_URL}/warranty`,
       siteName: SITE_NAME,
       locale: "es_ES",
@@ -180,8 +180,8 @@ export const seoMetaData: Record<string, Metadata> = {
     },
     twitter: {
       card: "summary_large_image",
-      title: "Garantía | Fadiar",
-      description: "Política de garantía y soporte postventa en Fadiar.",
+      title: "Garantía | Grupo Fadiar",
+      description: "Política de garantía y soporte postventa en el Grupo Fadiar.",
       images: [defaultOpenGraphImage.url],
     },
   },
@@ -196,7 +196,7 @@ export const getProductSeoMetaData = (params?: {
   const name = params?.name ?? "Producto";
   const description =
     params?.description ??
-    "Descubre detalles, precio y disponibilidad del producto en la tienda de Fadiar.";
+    "Descubre detalles, precio y disponibilidad del producto en la Grupo de Fadiar.";
   const url = params?.id ? `${SITE_URL}/product/${params.id}` : `${SITE_URL}/product`;
   const imageUrl = params?.imageUrl ?? defaultOpenGraphImage.url;
 
