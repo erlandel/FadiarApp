@@ -15,14 +15,14 @@ export const seoMetaData: Record<string, Metadata> = {
   "/": {
       title: "Grupo Fadiar | Electrodomésticos EON, Energía Solar y Mobiliario para Cuba",
     description:
-      "Grupo Fadiar ofrece electrodomésticos, mobiliario, sistemas solares y soluciones para el hogar y los negocios. Garantía real, servicio técnico y envíos a toda Cuba.",
+      "Encuentra electrodomésticos, mobiliario, sistemas de energía solares, soluciones para el hogar y los negocios. Garantía real, servicio técnico y envíos a toda Cuba.",
     alternates: {
       canonical: `${SITE_URL}/`,
     },
     openGraph: {
       title: "Grupo Fadiar | Electrodomésticos EON, Energía Solar y Mobiliario para Cuba",
       description:
-        "Grupo Fadiar ofrece electrodomésticos, mobiliario, sistemas solares y soluciones para el hogar y los negocios. Garantía real, servicio técnico y envíos a toda Cuba.",
+        "Encuentra electrodomésticos, mobiliario, sistemas de energía solares, soluciones para el hogar y los negocios. Garantía real, servicio técnico y envíos a toda Cuba.",
       url: `${SITE_URL}/`,
       siteName: SITE_NAME,
       locale: "es_ES",
@@ -33,7 +33,7 @@ export const seoMetaData: Record<string, Metadata> = {
       card: "summary_large_image",
       title: "Grupo Fadiar | Electrodomésticos EON, Energía Solar y Mobiliario para Cuba",
       description:
-        "Grupo Fadiar ofrece electrodomésticos, mobiliario, sistemas solares y soluciones para el hogar y los negocios. Garantía real, servicio técnico y envíos a toda Cuba.",
+        "Encuentra electrodomésticos, mobiliario, sistemas de energía solares, soluciones para el hogar y los negocios. Garantía real, servicio técnico y envíos a toda Cuba.",
       images: [defaultOpenGraphImage.url],
     },
   },
