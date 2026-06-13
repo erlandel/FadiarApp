@@ -24,7 +24,7 @@ export default function Cart1() {
 
   useEffect(() => {
     setIsClient(true);
-    syncCart();
+      syncCart({ setDeliveryDefault: false });
   }, []);
 
   // Items del carrito (sin filtrar por domicilio)

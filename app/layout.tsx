@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Grupo Fadiar | Electrodomésticos EON, Energía Solar y Mobiliario para Cuba",
-  description: "Encuentra electrodomésticos, mobiliario, sistemas de energía solares y soluciones para el hogar y los negocios. Garantía real, servicio técnico y envíos a toda Cuba.",
+  description: "Encuentra electrodomésticos, mobiliario, sistemas de energía solares,  soluciones para el hogar y los negocios. Garantía real, servicio técnico y envíos a toda Cuba.",
   verification: {
     google: "iziVXgg8234vKYvGu_cHoWAOX6K9nj96NecGPoNvONY",
   },

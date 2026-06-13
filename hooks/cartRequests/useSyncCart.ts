@@ -8,7 +8,8 @@ import { get_cart_productsUrl } from "@/urlApi/urlApi";
 import WarningMenssage from "@/messages/warningMenssage";
 import { clearCartCookie, setCartCookie } from "@/utils/cookies";
 
-export const syncCartStandalone = async (): Promise<boolean> => {
+export const syncCartStandalone = async (options: { setDeliveryDefault?: boolean } = {}): Promise<boolean> => {
+  const { setDeliveryDefault = true } = options;
   const { auth, setAuth } = useAuthStore.getState();
 
   if (!auth?.access_token || !auth?.user?.id) {
@@ -45,7 +46,7 @@ export const syncCartStandalone = async (): Promise<boolean> => {
 
       useCartStore.getState().setRawCart(rawCarrito);
 
-      if (rawCarrito.length > 0) {
+      if (rawCarrito.length > 0 && setDeliveryDefault) {
         MatterCart1Store.getState().updateFormData({ delivery: false });
       }
 
@@ -146,13 +147,13 @@ export const useSyncCart = (autoSync: boolean = false) => {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const scheduledExpiryRef = useRef<number | null>(null);
 
-  const syncCart = useCallback(async () => {
+  const syncCart = useCallback(async (options?: { setDeliveryDefault?: boolean }) => {
     const { auth } = useAuthStore.getState();
     if (!auth?.access_token || !auth?.user?.id) return;
 
     setLoading(true);
     try {
-      await syncCartStandalone();
+      await syncCartStandalone(options);
     } finally {
       setLoading(false);
     }
@@ -202,7 +203,7 @@ export const useSyncCart = (autoSync: boolean = false) => {
         scheduledExpiryRef.current = null;
 
         // Primero sincronizamos el carrito (remueve items expirados del store)
-        await syncCart();
+        await syncCart({ setDeliveryDefault: true });
 
         // Luego mostramos warning y redirigimos
         if (expiredItem) {

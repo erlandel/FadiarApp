@@ -1,6 +1,6 @@
 "use client";
 import { Check, ChevronDown, Loader, MapPin } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { InputField } from "../inputField/inputField";
 import PhoneInput from "../phoneInput/phoneInput";
@@ -14,6 +14,7 @@ import MatterCart1Store, {
 import useProductsByLocationStore from "@/store/productsByLocationStore";
 import useAuthStore from "@/store/authStore";
 import useLocation from "@/hooks/locationRequests/useLocation";
+import { useGetAddresses } from "@/hooks/addressRequests/useGetAddresses";
 import { NotoV1Information } from "@/icons/icons";
 import ModalSelectAddress from "../modal/modalSelectAddress/modalSelectAddress";
 
@@ -22,6 +23,7 @@ export default function Amount() {
   const { auth } = useAuthStore();
   const {
     province: storeProvince,
+    provinceId: storeProvinceId,
     municipality: storeMunicipality,
     municipalityId: storeMunicipalityId,
     setLocation,
@@ -32,6 +34,7 @@ export default function Amount() {
     openMunicipalities,
     setOpenMunicipalities,
     municipalitiesRef,
+    data: locationData,
   } = useLocation();
 
   const fullName = auth?.person
@@ -39,6 +42,12 @@ export default function Amount() {
     : "";
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isClient, setIsClient] = useState(false);
+
+  const {
+    addresses,
+    isLoading: areAddressesLoading,
+    isError: areAddressesError,
+  } = useGetAddresses({ enabled: isClient });
 
   const items = useStore(cartStore, (state) => state.items);
   const rawCart = useStore(cartStore, (state) => (state as any).rawCart);
@@ -49,6 +58,7 @@ export default function Amount() {
 
   const [lastNameInput, setLastNameInput] = useState("");
   const [showAddressModal, setShowAddressModal] = useState(false);
+  const hasAppliedDefaultAddress = useRef(false);
 
   // Items del carrito (sin filtrar por domicilio)
   const filteredItems = items;
@@ -106,6 +116,9 @@ export default function Amount() {
   useEffect(() => {
     setIsClient(true);
     const persistedFormData = MatterCart1Store.getState().formData;
+    if (persistedFormData.address?.trim()) {
+      hasAppliedDefaultAddress.current = true;
+    }
     const initialLastName =
       `${persistedFormData.lastName1 || ""} ${persistedFormData.lastName2 || ""}`.trim();
     setLastNameInput(initialLastName);
@@ -161,6 +174,10 @@ export default function Amount() {
         setErrors((prev) => ({ ...prev, lastName2: undefined }));
       }
       return;
+    }
+
+    if (name === "address") {
+      hasAppliedDefaultAddress.current = true;
     }
 
     updateFormData({ [name]: value });
@@ -263,32 +280,96 @@ export default function Amount() {
     router.push("/cart2");
   };
 
-  const activeStoreIds = Array.from(
-    new Set(items.map((item) => item.tiendaId).filter((id) => id != null)),
+  const activeStoreIds = useMemo(
+    () =>
+      Array.from(
+        new Set(items.map((item) => item.tiendaId).filter((id) => id != null)),
+      ),
+    [items],
   );
 
-  const deliveryStores =
-    Array.isArray(rawCart) && activeStoreIds.length > 0
-      ? rawCart.filter(
-          (tienda: any) =>
-            activeStoreIds.includes(tienda.id) &&
-            Array.isArray(tienda.domicilios) &&
-            tienda.domicilios.length > 0,
-        )
-      : [];
+  const deliveryStores = useMemo(
+    () =>
+      Array.isArray(rawCart) && activeStoreIds.length > 0
+        ? rawCart.filter(
+            (tienda: any) =>
+              activeStoreIds.includes(tienda.id) &&
+              Array.isArray(tienda.domicilios) &&
+              tienda.domicilios.length > 0,
+          )
+        : [],
+    [rawCart, activeStoreIds],
+  );
 
-  const municipalitiesWithCommonDelivery =
-    deliveryStores.length > 0
-      ? baseMunicipalities.filter((mun) =>
-          deliveryStores.every((tienda: any) =>
-            tienda.domicilios.some((d: any) => d.id_municipio === mun.id),
-          ),
-        )
-      : baseMunicipalities;
+  const municipalitiesWithCommonDelivery = useMemo(
+    () =>
+      deliveryStores.length > 0
+        ? baseMunicipalities.filter((mun) =>
+            deliveryStores.every((tienda: any) =>
+              tienda.domicilios.some((d: any) => d.id_municipio === mun.id),
+            ),
+          )
+        : baseMunicipalities,
+    [deliveryStores, baseMunicipalities],
+  );
+
+  useEffect(() => {
+    if (
+      !isClient ||
+      !formData.delivery ||
+      areAddressesLoading ||
+      hasAppliedDefaultAddress.current ||
+      formData.address?.trim()
+    ) {
+      return;
+    }
+
+    if (!addresses?.length) return;
+
+    const firstAllowed = (addresses as any[]).find((addr) => {
+      if (addr.provincia !== storeProvince) return false;
+      return municipalitiesWithCommonDelivery.some(
+        (m) =>
+          String(m.id) === String(addr.municipioId) ||
+          m.municipio === addr.municipio,
+      );
+    });
+
+    if (!firstAllowed) return;
+
+    hasAppliedDefaultAddress.current = true;
+    setLocation(
+      firstAllowed.provincia,
+      storeProvinceId,
+      firstAllowed.municipio,
+      String(firstAllowed.municipioId),
+    );
+    updateFormData({
+      address: firstAllowed.direccion,
+      province: firstAllowed.provincia,
+      municipality: firstAllowed.municipio,
+    });
+  }, [
+    isClient,
+    formData.delivery,
+    addresses,
+    areAddressesLoading,
+    formData.address,
+    municipalitiesWithCommonDelivery,
+    storeProvince,
+    storeProvinceId,
+    setLocation,
+    updateFormData,
+  ]);
 
   // Auto-select common municipality if current is invalid or empty
   useEffect(() => {
-    if (isClient && municipalitiesWithCommonDelivery.length > 0) {
+    if (
+      isClient &&
+      formData.delivery &&
+      municipalitiesWithCommonDelivery.length > 0 &&
+      !formData.address?.trim()
+    ) {
       const isCurrentValid = municipalitiesWithCommonDelivery.some(
         (m) => m.municipio === storeMunicipality,
       );
@@ -303,9 +384,12 @@ export default function Amount() {
     }
   }, [
     isClient,
+    formData.delivery,
+    formData.address,
     municipalitiesWithCommonDelivery,
     storeMunicipality,
     handleMunicipalityChange,
+    updateFormData,
   ]);
 
   return (
@@ -551,7 +635,11 @@ export default function Amount() {
                 onClose={() => setShowAddressModal(false)}
                 province={storeProvince}
                 allowedMunicipalities={municipalitiesWithCommonDelivery}
+                addresses={addresses}
+                isLoading={areAddressesLoading}
+                isError={areAddressesError}
                 onSelect={(addr, provinceId) => {
+                  hasAppliedDefaultAddress.current = true;
                   setLocation(
                     addr.provincia,
                     provinceId,

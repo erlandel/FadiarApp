@@ -1,7 +1,6 @@
 import { X, Loader } from "lucide-react";
 import { useMemo, useState } from "react";
 import { MunicipalityData } from "@/types/location";
-import { useGetAddresses } from "@/hooks/addressRequests/useGetAddresses";
 import useLocation from "@/hooks/locationRequests/useLocation";
 
 type AddressItem = {
@@ -17,6 +16,9 @@ type ModalSelectAddressProps = {
   onClose: () => void;
   province: string;
   allowedMunicipalities: MunicipalityData[];
+  addresses: AddressItem[];
+  isLoading: boolean;
+  isError: boolean;
   onSelect: (addr: AddressItem, provinceId: string | null) => void;
 };
 
@@ -25,9 +27,11 @@ export default function ModalSelectAddress({
   onClose,
   province,
   allowedMunicipalities,
+  addresses,
+  isLoading,
+  isError,
   onSelect,
 }: ModalSelectAddressProps) {
-  const { addresses, isLoading, isError } = useGetAddresses();
   const { data } = useLocation();
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
@@ -42,7 +46,7 @@ export default function ModalSelectAddress({
   );
 
   const filtered = useMemo(() => {
-    return (addresses as any[])
+    return addresses
       .filter((addr) => addr.provincia === province)
       .filter(
         (addr) =>

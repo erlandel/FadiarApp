@@ -4,7 +4,7 @@ import { get_addressesUrl } from "@/urlApi/urlApi";
 import { refreshToken } from "@/utils/refreshToken";
 
 
-export const useGetAddresses = () => {
+export const useGetAddresses = (options?: { enabled?: boolean }) => {
   const { auth, setAuth } = useAuthStore();
 
   const fetchAddresses = async () => {
@@ -63,7 +63,9 @@ export const useGetAddresses = () => {
   } = useQuery({
     queryKey: ["addresses", auth?.user?.id],
     queryFn: fetchAddresses,
-    enabled: !!auth?.user?.id,
+    enabled: (options?.enabled ?? true) && !!auth?.user?.id,
+    staleTime: 1000 * 60 * 30,
+    refetchOnWindowFocus: false,
   });
 
   return {
