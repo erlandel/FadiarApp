@@ -25,12 +25,13 @@ import { useSyncCart } from "@/hooks/cartRequests/useSyncCart";
 import useAuthStore, { initializeAuthSync } from "@/store/authStore";
 import { initializeCartSync } from "@/store/cartStore";
 import useClockStore from "@/store/clockStore";
+import { get_provinces_municipalitiesUrl } from "@/urlApi/urlApi";
 
 
 
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const { province, municipality, isOpen, setIsOpen } = useProductsByLocationStore();
+  const { province, municipality, isOpen, setIsOpen, provincesVersion, clearLocation } = useProductsByLocationStore();
   const { syncCart } = useSyncCart(true);
   const auth = useAuthStore((state) => state.auth);
   const startClock = useClockStore((state) => state.startClock);
@@ -75,10 +76,33 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
   }, [isHydrated, auth?.access_token, syncCart]);
 
   useEffect(() => {
-    if (isHydrated && (!province || !municipality) && !isAuthRoute) {
-      setIsOpen(true);
-    }
-  }, [isHydrated, province, municipality, isAuthRoute, setIsOpen]);
+    if (!isHydrated) return;
+
+    const checkVersionAndLocation = async () => {
+      try {
+        // 1. Verificamos la versión actual en la API
+        const res = await fetch(get_provinces_municipalitiesUrl);
+        const data = await res.json();
+        
+        // 2. Si hay una versión guardada y es diferente a la de la API, limpiamos y pedimos ubicación
+        if (data.version && provincesVersion && data.version !== provincesVersion) {
+          clearLocation();
+          setIsOpen(true);
+          return; // Terminamos la ejecución aquí
+        }
+      } catch (error) {
+        console.error("Error al verificar la versión de provincias:", error);
+      }
+
+      // 3. Si la versión es igual (o si es la primera vez / falló la red), verificamos si faltan datos
+      if ((!province || !municipality) && !isAuthRoute) {
+        setIsOpen(true);
+      }
+    };
+
+    checkVersionAndLocation();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isHydrated]); // Se ejecuta una sola vez cuando la app se hidrata
 
   // Flag global para pausar carruseles cuando el modal está abierto
   useEffect(() => {

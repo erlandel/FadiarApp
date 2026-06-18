@@ -1,4 +1,3 @@
-
 import { MetadataRoute } from "next";
 import { inventory_managerUrl } from "@/urlApi/urlApi";
 
@@ -8,7 +7,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     params.append("emisor", "web");
     params.append("productos", "true");
 
-    const res = await fetch(`${inventory_managerUrl}?${params.toString()}`);
+    const res = await fetch(`${inventory_managerUrl}?${params.toString()}`, {
+      next: { revalidate: 86400 },
+    });
     const data = await res.json();
 
     const tiendas = data.tiendas?.filter((t: any) => t.active) || [];
@@ -21,7 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
     return [
-      { url: "https://fadiar.com",         priority: 1.0 },
+      { url: "https://fadiar.com",          priority: 1.0 },
       { url: "https://fadiar.com/products", priority: 0.9 },
       { url: "https://fadiar.com/about",    priority: 0.8 },
       { url: "https://fadiar.com/contact",  priority: 0.7 },
@@ -32,7 +33,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ];
   } catch {
     return [
-      { url: "https://fadiar.com",         priority: 1.0 },
+      { url: "https://fadiar.com",          priority: 1.0 },
       { url: "https://fadiar.com/products", priority: 0.9 },
       { url: "https://fadiar.com/about",    priority: 0.8 },
       { url: "https://fadiar.com/contact",  priority: 0.7 },
