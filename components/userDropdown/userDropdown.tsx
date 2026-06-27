@@ -10,29 +10,30 @@ import {
   UilExit,
 } from "@/icons/icons";
 import useAuthStore from "@/store/authStore";
-import useCartStore from "@/store/cartStore";
 import { useRouter } from "next/navigation";
 import { refreshToken } from "@/utils/refreshToken";
 import SuccesMessage from "@/messages/succesMessage";
 import { logoutUrl } from "@/urlApi/urlApi";
 import { onClickOutside } from "@/utils/clickOutside";
-import { clearAuthCookie, clearCartCookie } from "@/utils/cookies";
+import { clearSession } from "@/utils/clearSession";
 
 export default function UserDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const { auth, clearAuth, setAuth } = useAuthStore();
-  const { clearCart } = useCartStore();
+  const { auth, setAuth } = useAuthStore();
   const router = useRouter();
 
   const handleLogout = async () => {
     setIsOpen(false);
-    console.log("se ejecuta el cirre de ceccion ");
 
     if (auth?.access_token && auth?.refresh_token) {
       try {
-        // Refrescar el token antes de cerrar sesión
         const currentToken = await refreshToken(auth, setAuth);
+
+        if (currentToken === null) {
+          router.push("/");
+          return;
+        }
 
         const response = await fetch(`${logoutUrl}`, {
           method: "POST",
@@ -40,55 +41,20 @@ export default function UserDropdown() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${currentToken}`,
           },
-          body: JSON.stringify({
-            refresh_token: auth.refresh_token,
-          }),
+          body: JSON.stringify({ refresh_token: auth.refresh_token }),
         });
 
-        if (response.ok) {
-          
-          SuccesMessage("Sesión cerrada con éxito");
-          clearAuth();
-          clearCart();
-          // Limpieza inmediata de cookies (para que el proxy redirija)
-          clearAuthCookie();
-          clearCartCookie();
-
-          if (typeof window !== "undefined") {
-            localStorage.removeItem("auth-storage");
-            router.push("/");
-          }
-
-        } else {
+        if (!response.ok) {
           console.error("Error al cerrar sesión en el servidor");
-          // Incluso si falla en el servidor, limpiamos localmente por seguridad
-          clearAuth();
-          clearCart();
-          localStorage.removeItem("auth-storage");
-          clearAuthCookie();
-          clearCartCookie();
-          router.push("/");
         }
       } catch (error) {
         console.error("Error de red al cerrar sesión:", error);
-        // En caso de error de red, también limpiamos localmente
-        clearAuth();
-        clearCart();
-        clearAuthCookie();
-        clearCartCookie();
-        localStorage.removeItem("auth-storage");
-        router.push("/");
-      }
-    } else {
-      clearAuth();
-      clearCart();
-      clearAuthCookie();
-      clearCartCookie();
-      if (typeof window !== "undefined") {
-        localStorage.removeItem("auth-storage");
-        router.push("/");
       }
     }
+
+    clearSession();
+    SuccesMessage("Sesión cerrada con éxito");
+    router.push("/");
   };
 
   useEffect(() => {

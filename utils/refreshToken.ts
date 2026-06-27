@@ -1,5 +1,7 @@
 import { refresh_tokenUrl } from "@/urlApi/urlApi";
 import { AuthPayload } from "../store/authStore";
+import { clearSession } from "./clearSession";
+import ErrorMessage from "@/messages/errorMessage";
 
 let refreshPromise: Promise<string | null> | null = null;
 
@@ -70,6 +72,8 @@ export const refreshToken = async (
       
       if (refreshResponse.status === 403 || refreshResponse.status === 401) {
         console.error("Refresh token inválido o expirado");
+        clearSession();
+        ErrorMessage("Tu sesión ha expirado");
         return null;
       }
     } catch (error) {

@@ -24,6 +24,7 @@ import useProductsByLocationStore from "@/store/productsByLocationStore";
 import { useSyncCart } from "@/hooks/cartRequests/useSyncCart";
 import useAuthStore, { initializeAuthSync } from "@/store/authStore";
 import { initializeCartSync } from "@/store/cartStore";
+import { refreshToken } from "@/utils/refreshToken";
 import useClockStore from "@/store/clockStore";
 import { get_provinces_municipalitiesUrl } from "@/urlApi/urlApi";
 
@@ -37,6 +38,7 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
   const startClock = useClockStore((state) => state.startClock);
   const [isHydrated, setIsHydrated] = useState(false);
   const hasSynced = useRef(false);
+  const sessionCheckedRef = useRef(false);
 
   const isAuthRoute = pathname.startsWith('/login') || pathname.startsWith('/register') || pathname.startsWith('/verificationEmail')|| pathname.startsWith('/changePassword') || pathname.startsWith('/recoverPassword')|| pathname.startsWith('/verificationCodeEmail')|| pathname.startsWith('/enterEmail');
   const isProtectedRoute = pathname.startsWith('/myProfile') || pathname.startsWith('/orders');
@@ -67,13 +69,22 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
   }, []);
 
   useEffect(() => {
-    if (isHydrated && auth?.access_token && !hasSynced.current) {
-      syncCart();
+    if (!isHydrated) return;
+
+    const { setAuth } = useAuthStore.getState();
+
+    if (auth && !sessionCheckedRef.current) {
+      sessionCheckedRef.current = true;
+      refreshToken(auth, setAuth);
+    }
+
+    if (auth?.access_token && !hasSynced.current) {
       hasSynced.current = true;
+      syncCart();
     } else if (!auth?.access_token) {
       hasSynced.current = false;
     }
-  }, [isHydrated, auth?.access_token, syncCart]);
+  }, [isHydrated, auth?.access_token]);
 
   useEffect(() => {
     if (!isHydrated) return;
