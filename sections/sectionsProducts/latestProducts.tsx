@@ -47,7 +47,7 @@ export const LatestProducts = ({
         <div className="w-full">
           {loading ? (
             <div className="flex gap-4 overflow-hidden">
-              {Array.from({ length: 10 }).map((_, index) => (
+              {Array.from({ length: 30 }).map((_, index) => (
                 <div key={index} className="shrink-0">
                   <CardSkeleton position={"vertical"} />
                 </div>
