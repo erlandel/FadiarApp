@@ -59,8 +59,8 @@ const InformationMessage = ({
               />
               <p className="text-sm md:text-lg text-primary leading-snug">
                 {variant === "delivery"
-                  ? "La entrega se realizará en un plazo de 24 a 72 horas."
-                  : "Puede recogerlo en nuestra sede en un plazo de 7 días hábiles."}
+                  ? <>La entrega se realizará en un plazo de 24 a 72 horas <strong className="font-bold">hábiles</strong>.</>
+                  : <>Puede recogerlo en nuestra sede en un plazo de 7 días <strong className="font-bold">hábiles</strong>.</>}
               </p>
             </div>
 
