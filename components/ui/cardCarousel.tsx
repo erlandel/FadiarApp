@@ -79,7 +79,7 @@ export default function CardCarousel<T>({
     let animationFrameId: number;
 
     // Calculate scroll speed
-    const baseIncrement = container.offsetWidth / (speed * 10);
+    const baseIncrement = Math.min(container.offsetWidth, 1920) / (speed * 10);
     const scrollSpeed = Math.max(0.1, baseIncrement);
 
     const animate = () => {

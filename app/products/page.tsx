@@ -88,36 +88,43 @@ export default function Products() {
       if (!gridRef.current) return;
 
       const width = window.innerWidth;
-      const containerWidth = gridRef.current.offsetWidth;
-      const gap = 16; // gap-4
-
       let rows = 5;
-      let columns;
 
       if (width >= 1280) {
         // xl
         rows = 3;
-        const minWidth = 200;
-        columns = Math.floor((containerWidth + gap) / (minWidth + gap));
       } else if (width >= 640) {
         // sm
         rows = 4;
-        const minWidth = 200;
-        columns = Math.floor((containerWidth + gap) / (minWidth + gap));
       } else {
         // < sm
         rows = 5;
-        columns = 2; // Forzamos 2 columnas en móviles
       }
 
-      const totalItems = Math.max(columns * rows, 1);
+      // Leer cuántas columnas reales ha creado CSS Grid
+      const gridComputedStyle = window.getComputedStyle(gridRef.current);
+      const gridTemplateColumns = gridComputedStyle.getPropertyValue("grid-template-columns");
+      
+      // gridTemplateColumns devuelve algo como "210px 210px 210px"
+      // Contamos cuántos elementos hay separados por espacio
+      const columns = gridTemplateColumns.split(" ").length;
+
+      // En móviles forzamos 2 columnas si el CSS no lo hace correctamente
+      const finalColumns = width < 640 ? 2 : columns;
+
+      const totalItems = Math.max(finalColumns * rows, 1);
 
       setItemsPerPage(totalItems);
     };
 
-    calculateItems();
-    window.addEventListener("resize", calculateItems);
-    return () => window.removeEventListener("resize", calculateItems);
+    // Usamos setTimeout para asegurar que el CSS Grid ya se haya renderizado antes de medir
+    const handleResize = () => {
+      setTimeout(calculateItems, 0);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Extraer categorías únicas de los productos (normalizado para evitar duplicados)
@@ -494,7 +501,7 @@ const paginatedProducts = useMemo(() => {
             <div
               id="products"
               ref={gridRef}
-              className="mx-4  xl:mx-0 xl:mr-10 3xl:mr-15 grid grid-cols-2 sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-3 sm:gap-4 auto-rows-fr justify-items-center"
+              className="mx-4  xl:mx-0 xl:mr-10 3xl:mr-15 grid grid-cols-2 sm:grid-cols-[repeat(auto-fill,minmax(210px,1fr))] gap-3 sm:gap-4 auto-rows-fr justify-items-center"
             >
               {isLoading ? (
                 // Mostrar 15 skeletons mientras carga

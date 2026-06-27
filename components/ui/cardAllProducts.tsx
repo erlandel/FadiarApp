@@ -152,22 +152,22 @@ export default function CardAllProducts({
           )}
 
           {temporal_price !== null && temporal_price !== undefined ? (
-            <div className="flex flex-wrap items-baseline justify-between xl:gap-x-1 xl:gap-y-1 2xl:gap-x-3 2xl:gap-y-1">
-              <p className="flex flex-wrap items-baseline xl:text-xl 2xl:text-2xl font-bold text-[#022954]">
+            <div className="flex items-baseline justify-between xl:gap-x-1 xl:gap-y-1 2xl:gap-x-3 2xl:gap-y-1 min-w-0">
+              <p className="flex items-baseline xl:text-xl 2xl:text-2xl font-bold text-[#022954] shrink-0">
                 ${temporal_price}
-                <span className="ml-1 text-base font-normal text-[#022954]">
+                <span className="ml-1 text-base font-normal text-[#022954] shrink-0">
                   {currency?.currency ?? "USD"}
                 </span>
               </p>
-              <p className="xl:text-md 2xl:text-lg text-[#777777] line-through">
+              <p className="xl:text-md 2xl:text-lg text-[#777777] line-through truncate min-w-0">
                 ${price} {currency?.currency ?? "USD"}
               </p>
             </div>
           ) : (
-            <div className="flex flex-wrap items-baseline gap-2 text-[#022954]">
-              <p className="flex items-baseline xl:text-xl 2xl:text-2xl font-bold whitespace-nowrap">
+            <div className="flex flex-nowrap items-baseline gap-2 text-[#022954] overflow-hidden">
+              <p className="flex items-baseline xl:text-xl 2xl:text-2xl font-bold min-w-0 truncate">
                 ${price}
-                <span className="ml-1 text-base font-normal">
+                <span className="ml-1 text-base font-normal shrink-0">
                   {currency?.currency ?? "USD"}
                 </span>
               </p>

@@ -17,7 +17,7 @@ export default function RelatedProds({ products = [] }: RelatedProdsProps) {
         <h2 className="text-[24px] font-bold text-accent">Productos relacionados</h2>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3 place-items-center">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3  place-items-center">
         {visibleProducts.length > 0 ? (
           visibleProducts.map((product) => (
             <CardProduct
