@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import "animate.css";
 import LayoutWrapper from "./layoutWrapper";
@@ -37,8 +38,10 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <script
+        <Script
+          id="organization-schema"
           type="application/ld+json"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
         <LayoutWrapper>{children}</LayoutWrapper>
