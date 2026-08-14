@@ -78,23 +78,22 @@ export default function CardCarousel<T>({
 
     let animationFrameId: number;
 
-    // Calculate scroll speed
-    const baseIncrement = Math.min(container.offsetWidth, 1920) / (speed * 10);
-    const scrollSpeed = Math.max(0.1, baseIncrement);
+    // px por segundo base (velocidad 2xl): independiente de la tasa de refresco
+    // y del ancho real del viewport (tope en 1536px / breakpoint 2xl)
+    const pxPerSecond = (Math.min(container.offsetWidth, 1536) / (speed * 10)) * 60;
+    const dir = direction === "left" ? 1 : -1;
+    let lastTime = 0;
 
-    const animate = () => {
+    const animate = (timestamp: number) => {
       // Pausar si el modal está abierto (flag global)
       if (window.__modalOpen) {
         animationFrameId = requestAnimationFrame(animate);
         return;
       }
-      if (container) {
-        if (direction === "left") {
-          container.scrollLeft += scrollSpeed;
-        } else {
-          container.scrollLeft -= scrollSpeed;
-        }
-      }
+      if (!lastTime) lastTime = timestamp;
+      const dt = Math.min((timestamp - lastTime) / 1000, 0.05); // clamp saltos
+      lastTime = timestamp;
+      container.scrollLeft += pxPerSecond * dt * dir;
       animationFrameId = requestAnimationFrame(animate);
     };
 

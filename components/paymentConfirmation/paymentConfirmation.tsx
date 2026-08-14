@@ -22,16 +22,16 @@ export default function PaymentConfirmation() {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 2xl:max-w-350 2xl:mx-auto ">
         <div className="md:col-span-2 xl:col-span-1">
           <ProductListConfirmation />
         </div>
 
-        <div className="w-full max-w-120 mx-auto md:mx-0">
+        <div className="w-full  mx-auto md:mx-0">
           <RecipientPaymentDetails />
         </div>
 
-        <div className="w-full max-w-120 mx-auto md:mx-0">
+        <div className="w-full  mx-auto md:mx-0">
           <div>
             <PayerPaymentDetails />
           </div>

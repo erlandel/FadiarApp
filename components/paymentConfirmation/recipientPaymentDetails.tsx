@@ -263,7 +263,7 @@ export default function RecipientPaymentDetails() {
   };
 
   return (
-    <div className="w-full  max-w-120  wrap-break-word">
+    <div className="w-full    wrap-break-word">
       <div>
         <h5 className="text-primary font-bold text-xl ml-4 pb-1">
           DATOS DE ENTREGA
